@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bản Thiết Kế Bài Tập Tiếng Anh 9 - Ms Lê Hằng English (Phần 2)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght=400;700;900&family=Quicksand:wght=500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #8854C0;
+            --accent-yellow: #FDCB6E;
+            --accent-teal: #00C9A7;
+            --correct-color: #00D26A;
+            --wrong-color: #FF4757;
+            --card-bg: #ffffff;
+            --text-main: #2D3436;
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Quicksand', 'Nunito', sans-serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: linear-gradient(-45deg, #8854C0, #FDCB6E, #00C9A7, #FF7675);
+            background-size: 400% 400%;
+            animation: gradientAnimation 12s ease infinite;
+            color: var(--text-main);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .bg-pattern {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1; pointer-events: none; opacity: 0.18;
+        }
+
+        .header-container {
+            text-align: center;
+            padding: 20px 10px;
+            color: #ffffff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header-container h5 {
+            margin: 0 0 10px 0;
+            font-size: 16px;
+            font-weight: 700;
+            background: rgba(0, 0, 0, 0.2);
+            display: inline-block;
+            padding: 6px 18px;
+            border-radius: 20px;
+        }
+
+        .warning-box {
+            background: #ffffff;
+            color: #2D3436;
+            max-width: 680px;
+            margin: 10px auto;
+            padding: 20px;
+            border-radius: 24px;
+            border: 4px solid var(--accent-yellow);
+            box-shadow: 0 8px 0 var(--accent-yellow);
+            text-align: center;
+        }
+
+        .warning-box h3 {
+            margin-top: 0;
+            color: #E67E22;
+            font-size: 18px;
+            font-weight: 900;
+        }
+
+        .warning-box p {
+            font-size: 14px;
+            line-height: 1.5;
+            margin: 6px 0;
+            font-weight: 700;
+        }
+
+        .scroll-reminder {
+            color: #8854C0;
+            font-style: italic;
+            animation: bounce 1.4s infinite;
+            display: inline-block;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
+        }
+
+        .progress-container {
+            max-width: 720px;
+            margin: 15px auto;
+            padding: 0 15px;
+        }
+        .progress-bar-wrapper {
+            background: rgba(255,255,255,0.35);
+            border-radius: 15px;
+            height: 16px;
+            overflow: hidden;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .progress-bar {
+            height: 100%; width: 0%;
+            background: linear-gradient(90deg, #00D26A, #00C9A7);
+            border-radius: 15px;
+            transition: width 0.4s ease;
+        }
+
+        .quiz-container {
+            max-width: 720px;
+            margin: 0 auto 40px auto;
+            padding: 0 15px;
+        }
+
+        .quiz-card {
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.12);
+            border: 3px solid rgba(0,0,0,0.03);
+            position: relative;
+        }
+
+        .category-badge {
+            background: var(--primary-color);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 14px;
+            font-size: 12px;
+            font-weight: 900;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .question-text {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 18px;
+            line-height: 1.6;
+            color: #2D3436;
+        }
+
+        .option-btn {
+            background: #ffffff;
+            border: 2px solid #E4E7EB;
+            border-radius: 18px;
+            padding: 14px 18px;
+            margin-bottom: 10px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            text-align: left;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 5px 0 #E4E7EB;
+            transition: all 0.12s ease;
+        }
+
+        .option-btn:hover:not(.disabled) {
+            transform: scale(1.015) translateY(-2px);
+            box-shadow: 0 7px 0 #CED6E0;
+            border-color: #A4B0BE;
+        }
+
+        .option-btn:active:not(.disabled) {
+            transform: translateY(3px);
+            box-shadow: 0 2px 0 #CED6E0;
+        }
+
+        .option-prefix {
+            background: #F1F2F6;
+            border-radius: 50%;
+            width: 28px; height: 28px;
+            display: inline-flex;
+            align-items: center; justify-content: center;
+            margin-right: 12px;
+            font-weight: 900;
+            color: #57606F;
+            flex-shrink: 0;
+        }
+
+        .option-btn.correct {
+            background-color: var(--correct-color) !important;
+            color: white !important;
+            border-color: #00A854 !important;
+            box-shadow: 0 5px 0 #00A854 !important;
+        }
+        .option-btn.correct .option-prefix {
+            background: rgba(255,255,255,0.35) !important;
+            color: white !important;
+        }
+
+        .option-btn.wrong {
+            background-color: var(--wrong-color) !important;
+            color: white !important;
+            border-color: #D63031 !important;
+            box-shadow: 0 5px 0 #D63031 !important;
+        }
+        .option-btn.wrong .option-prefix {
+            background: rgba(255,255,255,0.35) !important;
+            color: white !important;
+        }
+
+        .shake { animation: shakeAnim 0.4s ease-in-out; }
+        @keyframes shakeAnim {
+            0%, 100% { transform: translateX(0); }
+            25%, 75% { transform: translateX(-6px); }
+            50% { transform: translateX(6px); }
+        }
+
+        .explanation-box {
+            margin-top: 18px; padding: 18px;
+            background-color: #F9F2FF; border-left: 6px solid var(--primary-color);
+            border-radius: 12px; font-size: 14px; line-height: 1.6;
+            display: none; animation: fadeIn 0.35s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .exp-title { color: var(--primary-color); font-weight: 900; margin-bottom: 8px; font-size: 15px; }
+
+        .submit-btn-wrapper { text-align: center; margin: 40px 0; }
+        .submit-all-btn { background: #FF7675; color: white; border: none; border-radius: 25px; padding: 15px 45px; font-size: 18px; font-weight: 900; cursor: pointer; box-shadow: 0 7px 0 #E25E5E; transition: all 0.2s; }
+        .submit-all-btn:hover { transform: scale(1.04) translateY(-2px); box-shadow: 0 9px 0 #E25E5E; }
+
+        .result-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; display: none; align-items: center; justify-content: center; }
+        .result-box { background: white; padding: 35px; border-radius: 32px; max-width: 520px; width: 90%; text-align: center; border: 6px solid var(--accent-teal); }
+        .result-score { font-size: 45px; font-weight: 900; color: var(--primary-color); margin: 12px 0; }
+        .result-comment { font-size: 15px; line-height: 1.6; font-weight: 700; color: #2D3436; background: #F1F2F6; padding: 15px; border-radius: 16px; margin-bottom: 20px; }
+        .close-result-btn { background: var(--accent-teal); color: white; border: none; padding: 12px 30px; border-radius: 20px; font-weight: 900; cursor: pointer; box-shadow: 0 5px 0 #00A387; }
+
+        #confetti-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1500; pointer-events: none; }
+        u { text-decoration: underline; color: #E74C3C; font-weight: 900; }
+        b { color: #2D3436; }
+        .scrambled-box { background: #F1F2F6; padding: 10px 15px; border-radius: 12px; font-style: italic; color: #57606F; margin-bottom: 12px; font-size: 14px; border-left: 4px solid #CED6E0; }
+    </style>
+</head>
+<body>
+
+    <canvas id="confetti-canvas"></canvas>
+
+    <svg class="bg-pattern" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+        <defs>
+            <pattern id="shapes" width="100" height="100" patternUnits="userSpaceOnUse">
+                <path d="M20,5 L23,13 L32,13 L25,18 L27,27 L20,22 L13,27 L15,18 L8,13 L17,13 Z" fill="#FFF" opacity="0.35" transform="translate(10,10) scale(0.5)"/>
+                <circle cx="60" cy="60" r="5" fill="#FFF" opacity="0.4"/>
+                <path d="M70,20 C73,15 82,15 85,20 C89,19 95,24 93,29 C96,34 91,40 85,38 C82,42 73,42 70,38 C65,39 61,33 64,29 C61,24 66,19 70,20 Z" fill="#FFF" opacity="0.25" transform="translate(-20,10) scale(0.5)"/>
+            </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#shapes)" />
+    </svg>
+
+    <div class="header-container">
+        <h5>Giáo viên tạo: Ms Lê Hằng English</h5>
+        <div class="warning-box">
+            <h3>⚠️ LỜI NHẮC CỰC KỲ QUAN TRỌNG ⚠️</h3>
+            <p>Chỉ có đọc kỹ giải thích ngay sau mỗi câu, sau đó ghi lại từ vựng/cấu trúc mới vào vở để học thì mới thực sự giỏi lên.</p>
+            <p>Làm cho xong mà không đọc giải thích hay đọc qua loa không ghi chép thì chỉ tốn thời gian vô ích!</p>
+            <p class="scroll-reminder">* Kéo tới đâu, làm tới đó! *</p>
+        </div>
+    </div>
+
+    <div class="progress-container">
+        <div class="progress-bar-wrapper">
+            <div id="quiz-progress" class="progress-bar"></div>
+        </div>
+    </div>
+
+    <div id="quiz-cards-wrapper" class="quiz-container"></div>
+
+    <div class="submit-btn-wrapper">
+        <button class="submit-all-btn" onclick="showFinalScore()">🎉 NỘP BÀI TỔNG KẾT 🎉</button>
+    </div>
+
+    <div id="result-modal" class="result-modal">
+        <div class="result-box">
+            <h2>Kết Quả Của Con</h2>
+            <div id="score-text" class="result-score">0 / 0</div>
+            <div id="comment-text" class="result-comment"></div>
+            <button class="close-result-btn" onclick="closeResultModal()">Đóng và xem lại</button>
+        </div>
+    </div>
+
+    <script>
+        const originalQuestions = [
+  {
+    "id": "ex21_1",
+    "type": "mcq",
+    "category": "Exercise 21: Rearrange the words to make complete sentences",
+    "question": "<div class='scrambled-box'>shouldn’t/ visit/ the/ If/ park,/ a/ national/ you/ feed/ you/ wildlife.</div>Hãy chọn đáp án sắp xếp hoàn chỉnh và chính xác nhất:",
+    "options": [
+      "If you visit a national park, you shouldn't feed the wildlife.",
+      "If you shouldn't feed the wildlife, you visit a national park.",
+      "You visit a national park if you shouldn't feed the wildlife.",
+      "If you visit a wildlife, you shouldn't feed national park."
+    ],
+    "correctText": "If you visit a national park, you shouldn't feed the wildlife.",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Ý nghĩa câu:</b> Nếu con đi tham quan công viên quốc gia, con không nên cho động vật hoang dã ăn.<br><b>Ngữ pháp cốt lõi:</b> Câu điều kiện loại 1 diễn tả một lời khuyên ở mệnh đề chính sử dụng động từ khuyết thiếu <i>shouldn't + V-inf</i>."
+  },
+  {
+    "id": "ex21_2",
+    "type": "mcq",
+    "category": "Exercise 21: Rearrange the words to make complete sentences",
+    "question": "<div class='scrambled-box'>medical/ you/ you' re/ advice./ consider/ should/ unwell,/ seeking/ If/ feeling</div>Hãy chọn đáp án sắp xếp hoàn chỉnh và chính xác nhất:",
+    "options": [
+      "If you' re feeling unwell, you should consider seeking medical advice.",
+      "If you should consider seeking medical advice, you're feeling unwell.",
+      "You should consider seeking feeling unwell if medical advice.",
+      "If medical advice seeking, you should consider feeling unwell."
+    ],
+    "correctText": "If you' re feeling unwell, you should consider seeking medical advice.",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Ý nghĩa câu:</b> Nếu con cảm thấy không khỏe, con nên cân nhắc việc tìm kiếm lời khuyên từ y tế.<br><b>Cấu trúc nâng cao:</b> <i>consider + V-ing</i> (cân nhắc làm việc gì)."
+  },
+  {
+    "id": "ex21_3",
+    "type": "mcq",
+    "category": "Exercise 21: Rearrange the words to make complete sentences",
+    "question": "<div class='scrambled-box'>went to/ John/ the library/ because/ to research/ his science project/ he/ wanted/.</div>Hãy chọn đáp án sắp xếp hoàn chỉnh và chính xác nhất:",
+    "options": [
+      "John went to the library because he wanted to research his science project.",
+      "John wanted to research his science project because he went to the library.",
+      "Because John went to research his science project, he wanted the library.",
+      "The library John went to because he wanted his science project research."
+    ],
+    "correctText": "John went to the library because he wanted to research his science project.",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Ý nghĩa câu:</b> John đã đến thư viện bởi vì cậu ấy muốn nghiên cứu về dự án khoa học của mình.<br><b>Ngữ pháp:</b> Mệnh đề nguyên nhân kết quả sử dụng liên từ <i>because</i> liên kết hai mệnh đề ở quá khứ đơn."
+  },
+  {
+    "id": "ex21_4",
+    "type": "mcq",
+    "category": "Exercise 21: Rearrange the words to make complete sentences",
+    "question": "<div class='scrambled-box'>I/ By the time/ I/ had already/ started/ made/ high school,/ many new friends/.</div>Hãy chọn đáp án sắp xếp hoàn chỉnh và chính xác nhất:",
+    "options": [
+      "By the time I started high school, I had already made many new friends.",
+      "By the time I had already made many new friends, I started high school.",
+      "I started high school by the time I had already made many new friends.",
+      "Many new friends I had already made by the time started high school."
+    ],
+    "correctText": "By the time I started high school, I had already made many new friends.",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Ý nghĩa câu:</b> Vào thời điểm tớ bắt đầu học cấp ba, tớ đã kết giao được rất nhiều người bạn mới rồi.<br><b>Cấu trúc siêu kinh điển:</b> <i>By the time + S + V(quá khứ đơn), S + had + V3/ed (quá khứ hoàn thành)</i>."
+  },
+  {
+    "id": "ex21_5",
+    "type": "mcq",
+    "category": "Exercise 21: Rearrange the words to make complete sentences",
+    "question": "<div class='scrambled-box'>have/ due/ it/ trouble/ might/ or/ to/ If/ you/ be/ allergies/ breathing,/ asthma./</div>Hãy chọn đáp án sắp xếp hoàn chỉnh và chính xác nhất:",
+    "options": [
+      "If you have trouble breathing, it might be due to allergies or asthma.",
+      "If you might be due to allergies or asthma, it have trouble breathing.",
+      "It have trouble breathing if you might be due to allergies or asthma.",
+      "If allergies or asthma have trouble breathing, it might be due to you."
+    ],
+    "correctText": "If you have trouble breathing, it might be due to allergies or asthma.",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Ý nghĩa câu:</b> Nếu con gặp khó khăn khi thở, điều đó có thể là do dị ứng hoặc bệnh hen suyễn.<br><b>Từ vựng cần nhớ:</b> <i>have trouble + V-ing</i> (gặp khó khăn khi làm gì), <i>due to</i> (do, bởi vì)."
+  },
+  {
+    "id": "ex21_6",
+    "type": "mcq",
+    "category": "Exercise 21: Rearrange the words to make complete sentences",
+    "question": "<div class='scrambled-box'>If/ you/ license./ car,/ you/ have/ drive/ must/ a/ a/ to/ driver’s/ want/</div>Hãy chọn đáp án sắp xếp hoàn chỉnh và chính xác nhất:",
+    "options": [
+      "If you want to drive a car, you must have a driver's license.",
+      "If you must have a driver's license, you want to drive a car.",
+      "You drive a car if you want to must have a driver's license.",
+      "If you want a driver's license, you must have to drive a car."
+    ],
+    "correctText": "If you want to drive a car, you must have a driver's license.",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Ý nghĩa câu:</b> Nếu con muốn lái xe ô tô, con bắt buộc phải có bằng lái xe.<br><b>Ngữ pháp:</b> Sử dụng <i>must + V-inf</i> chỉ nghĩa bắt buộc bắt buộc pháp lý trong mệnh đề chính câu điều kiện loại 1."
+  },
+  {
+    "id": "ex21_7",
+    "type": "mcq",
+    "category": "Exercise 21: Rearrange the words to make complete sentences",
+    "question": "<div class='scrambled-box'>you/ have/ shouldn't/ money,/ If/ it/ you/ don' t/ spend/ much/ on/ unnecessary/ things./</div>Hãy chọn đáp án sắp xếp hoàn chỉnh và chính xác nhất:",
+    "options": [
+      "If you don't have much money, you shouldn't spend it on unnecessary things.",
+      "If you shouldn't spend it on unnecessary things, you don't have much money.",
+      "You don't have much money if you shouldn't spend it on unnecessary things.",
+      "If you spend it on unnecessary things, you shouldn't have much money."
+    ],
+    "correctText": "If you don't have much money, you shouldn't spend it on unnecessary things.",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Ý nghĩa câu:</b> Nếu con không có nhiều tiền, con không nên tiêu xài nó vào những thứ không cần thiết.<br><b>Cấu trúc đi kèm:</b> <i>spend money on something</i> (tiêu tiền vào việc gì)."
+  },
+  {
+    "id": "ex21_8",
+    "type": "mcq",
+    "category": "Exercise 21: Rearrange the words to make complete sentences",
+    "question": "<div class='scrambled-box'>more/ you/ practise/ posture,/ confident./ good/ appear/ If/ you/ can/</div>Hãy chọn đáp án sắp xếp hoàn chỉnh và chính xác nhất:",
+    "options": [
+      "If you practise good posture, you can appear more confident.",
+      "If you appear more confident, you can practise good posture.",
+      "You can practise good posture if you appear more confident.",
+      "If you practise more confident, you can appear good posture."
+    ],
+    "correctText": "If you practise good posture, you can appear more confident.",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Ý nghĩa câu:</b> Nếu con thực hành một tư thế đứng/ngồi tốt, con có thể trông tự tin hơn.<br><b>Động từ nối (Linking verb):</b> <i>appear + adj</i> (trông có vẻ như thế nào)."
+  },
+  {
+    "id": "ex21_9",
+    "type": "mcq",
+    "category": "Exercise 21: Rearrange the words to make complete sentences",
+    "question": "<div class='scrambled-box'>smile./ If/ teeth/ your/ have/ regularly,/ you/ may/ you/ a/ brush/ brighter</div>Hãy chọn đáp án sắp xếp hoàn chỉnh và chính xác nhất:",
+    "options": [
+      "If you brush your teeth regularly, you may have a brighter smile.",
+      "If you have a brighter smile, you may brush your teeth regularly.",
+      "You may brush your teeth regularly if you have a brighter smile.",
+      "If you brush a brighter smile, you may have your teeth regularly."
+    ],
+    "correctText": "If you brush your teeth regularly, you may have a brighter smile.",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Ý nghĩa câu:</b> Nếu con đánh răng thường xuyên, con có thể sở hữu một nụ cười rạng rỡ tươi sáng hơn."
+  },
+  {
+    "id": "ex21_10",
+    "type": "mcq",
+    "category": "Exercise 21: Rearrange the words to make complete sentences",
+    "question": "<div class='scrambled-box'>all night/ studied/ nervous about/ Feeling/ the upcoming exam,/ Emily/.</div>Hãy chọn đáp án sắp xếp hoàn chỉnh và chính xác nhất:",
+    "options": [
+      "Feeling nervous about the upcoming exam, Emily studied all night.",
+      "Emily studied all night feeling nervous about the upcoming exam.",
+      "Nervous about the upcoming exam, Emily feeling studied all night.",
+      "Feeling studied all night, Emily nervous about the upcoming exam."
+    ],
+    "correctText": "Feeling nervous about the upcoming exam, Emily studied all night.",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Ý nghĩa câu:</b> Cảm thấy lo lắng về bài kiểm tra sắp tới, Emily đã học bài suốt cả đêm.<br><b>Cấu trúc rút gọn chủ ngữ:</b> Sử dụng cụm phân từ hiện tại <i>V-ing</i> đứng đầu câu khi hai mệnh đề có cùng chung chủ ngữ."
+  },
+  {
+    "id": "ex21_11",
+    "type": "mcq",
+    "category": "Exercise 21: Rearrange the words to make complete sentences",
+    "question": "<div class='scrambled-box'>teenagers/ can/ for/ many career opportunities/ open up/ Learning to code/.</div>Hãy chọn đáp án sắp xếp hoàn chỉnh và chính xác nhất:",
+    "options": [
+      "Learning to code can open up many career opportunities for teenagers.",
+      "Teenagers can open up many career opportunities for learning to code.",
+      "Learning to code for teenagers can open up many career opportunities.",
+      "Many career opportunities can open up learning to code for teenagers."
+    ],
+    "correctText": "Learning to code can open up many career opportunities for teenagers.",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Ý nghĩa câu:</b> Học lập trình có thể mở ra nhiều cơ hội nghề nghiệp lớn cho thanh thiếu niên.<br><b>Cụm động từ (Phrasal Verb):</b> <i>open up</i> (mở ra triển vọng mới)."
+  },
+  {
+    "id": "ex21_12",
+    "type": "mcq",
+    "category": "Exercise 21: Rearrange the words to make complete sentences",
+    "question": "<div class='scrambled-box'>If/ you/ must/ have/ a/ question,/ you/ and/ raise/ hand/ ask/ you/ your/ the/ teacher./</div>Hãy chọn đáp án sắp xếp hoàn chỉnh và chính xác nhất:",
+    "options": [
+      "If you have a question, you must raise your hand and ask the teacher.",
+      "If you raise your hand and ask the teacher, you must have a question.",
+      "You must raise your question if you have a hand and ask the teacher.",
+      "If the teacher have a question, you must raise your hand and ask you."
+    ],
+    "correctText": "If you have a question, you must raise your hand and ask the teacher.",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Ý nghĩa câu:</b> Nếu con có câu hỏi thắc mắc, con phải giơ tay phát biểu và hỏi thầy cô giáo."
+  },
+  {
+    "id": "ex21_13",
+    "type": "mcq",
+    "category": "Exercise 21: Rearrange the words to make complete sentences",
+    "question": "<div class='scrambled-box'>dream of/ Many teenagers/ traveling the world/ when/ finish school/ they/.</div>Hãy chọn đáp án sắp xếp hoàn chỉnh và chính xác nhất:",
+    "options": [
+      "Many teenagers dream of traveling the world when they finish school.",
+      "When many teenagers finish school, they dream of traveling the world.",
+      "Many teenagers finish school when they dream of traveling the world.",
+      "Traveling the world dream of many teenagers when they finish school."
+    ],
+    "correctText": "Many teenagers dream of traveling the world when they finish school.",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Ý nghĩa câu:</b> Nhiều bạn trẻ ước mơ đi du lịch vòng quanh thế giới khi họ hoàn thành chương trình học học đường.<br><b>Cấu trúc cố định:</b> <i>dream of + V-ing</i> (mơ ước về điều gì)."
+  },
+  {
+    "id": "ex21_14",
+    "type": "mcq",
+    "category": "Exercise 21: Rearrange the words to make complete sentences",
+    "question": "<div class='scrambled-box'>on their phones/ stay up late/ because/ sleep/ often struggle with/ Teenagers/ they/.</div>Hãy chọn đáp án sắp xếp hoàn chỉnh và chính xác nhất:",
+    "options": [
+      "Teenagers often struggle with sleep because they stay up late on their phones.",
+      "Teenagers stay up late on their phones because they often struggle with sleep.",
+      "Because teenagers often struggle with sleep, they stay up late on their phones.",
+      "Teenagers often stay up late because they struggle with sleep on their phones."
+    ],
+    "correctText": "Teenagers often struggle with sleep because they stay up late on their phones.",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Ý nghĩa câu:</b> Các bạn thiếu niên thường phải vật lộn với giấc ngủ bởi vì họ thức quá khuya bấm điện thoại.<br><b>Cấu trúc:</b> <i>struggle with something</i> (khó khăn vật lộn với vấn đề gì)."
+  },
+  {
+    "id": "ex22_1",
+    "type": "mcq",
+    "category": "Exercise 22: First conditional sentences with modal verbs",
+    "question": "Hoàn thành câu điều kiện loại 1 sử dụng từ khuyết thiếu gợi ý trong ngoặc:<br><b>you/ finish/ test/ you/ hand/ it/ and/ leave/ home/ immediately. (can)</b>",
+    "options": [
+      "If you finish your test, you can hand it in and leave for home immediately.",
+      "If you will finish your test, you can hand it and leave home immediately.",
+      "You can finish your test if you hand it in and leave for home immediately.",
+      "If you finish your test, you must hand it in and leave for home immediately."
+    ],
+    "correctText": "If you finish your test, you can hand it in and leave for home immediately.",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Ý nghĩa câu:</b> Nếu con hoàn thành bài kiểm tra của mình, con có thể nộp bài và ra về nhà ngay lập tức.<br><b>Cấu trúc phrasal verb:</b> <i>hand in</i> (nộp bài), mệnh đề chính chia khuyết thiếu <i>can + V-inf</i>."
+  },
+  {
+    "id": "ex22_2",
+    "type": "mcq",
+    "category": "Exercise 22: First conditional sentences with modal verbs",
+    "question": "Hoàn thành câu điều kiện loại 1 sử dụng từ khuyết thiếu gợi ý trong ngoặc:<br><b>Linda/ win/ contest/ she/ have/ enough money/ go travelling/ Europe. (might)</b>",
+    "options": [
+      "If Linda wins the contest, she might have enough money to go travelling in Europe.",
+      "If Linda win the contest, she might have enough money to go travelling in Europe.",
+      "Linda might have enough money if she wins the contest to go travelling Europe.",
+      "If Linda will win the contest, she might have enough money to go travelling in Europe."
+    ],
+    "correctText": "If Linda wins the contest, she might have enough money to go travelling in Europe.",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Ý nghĩa câu:</b> Nếu Linda thắng cuộc thi, cô ấy có thể có đủ tiền để đi du lịch châu Âu.<br><b>Chia động từ ngôi thứ 3 số ít:</b> Chủ ngữ <i>Linda</i> là số ít nên động từ mệnh đề IF phải thêm s thành <i>wins</i>."
+  },
+  {
+    "id": "ex22_3",
+    "type": "mcq",
+    "category": "Exercise 22: First conditional sentences with modal verbs",
+    "question": "Hoàn thành câu điều kiện loại 1 sử dụng từ khuyết thiếu gợi ý trong ngoặc:<br><b>you/ want/ take/ part/ contest/ you/ fill/ this form. (must)</b>",
+    "options": [
+      "If you want to take part in the contest, you must fill in this form.",
+      "If you want take part in the contest, you must fill this form.",
+      "You must take part in the contest if you want to fill in this form.",
+      "If you will want to take part in the contest, you must fill in this form."
+    ],
+    "correctText": "If you want to take part in the contest, you must fill in this form.",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Ý nghĩa câu:</b> Nếu con muốn tham gia cuộc thi, con bắt buộc phải điền thông tin vào mẫu đơn này.<br><b>Cụm động từ cố định:</b> <i>take part in</i> (tham gia), <i>fill in</i> (điền thông tin vào đơn)."
+  },
+  {
+    "id": "ex22_4",
+    "type": "mcq",
+    "category": "Exercise 22: First conditional sentences with modal verbs",
+    "question": "Hoàn thành câu điều kiện loại 1 sử dụng từ khuyết thiếu gợi ý trong ngoặc:<br><b>they/ want/ win/ competition/ they/ give/ best/ performance. (must)</b>",
+    "options": [
+      "If they want to win the competition, they must give their best performance.",
+      "If they want win the competition, they must give best performance.",
+      "They must win the competition if they want to give their best performance.",
+      "If they will want to win the competition, they must give their best performance."
+    ],
+    "correctText": "If they want to win the competition, they must give their best performance.",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Ý nghĩa câu:</b> Nếu họ muốn chiến thắng cuộc thi, họ bắt buộc phải cống hiến buổi biểu diễn xuất sắc nhất của mình."
+  },
+  {
+    "id": "ex22_5",
+    "type": "mcq",
+    "category": "Exercise 22: First conditional sentences with modal verbs",
+    "question": "Hoàn thành câu điều kiện loại 1 sử dụng từ khuyết thiếu gợi ý trong ngoặc:<br><b>it/ rain/ tomorrow/ we/ have/ delay/ meeting. (may)</b>",
+    "options": [
+      "If it rains tomorrow, we may have to delay the meeting.",
+      "If it will rain tomorrow, we may have to delay the meeting.",
+      "We may have to delay the meeting if it rain tomorrow.",
+      "If it rains tomorrow, we may have to delaying the meeting."
+    ],
+    "correctText": "If it rains tomorrow, we may have to delay the meeting.",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Ý nghĩa câu:</b> Nếu ngày mai trời mưa, chúng ta có thể sẽ phải trì hoãn cuộc họp.<br><b>Lưu ý:</b> Cấu trúc <i>have to + V-inf</i> (phải làm gì)."
+  },
+  {
+    "id": "ex22_6",
+    "type": "mcq",
+    "category": "Exercise 22: First conditional sentences with modal verbs",
+    "question": "Hoàn thành câu điều kiện loại 1 sử dụng từ khuyết thiếu gợi ý trong ngoặc:<br><b>your classmate/ want/ sleep/ early/ he/ make/ schedule. (should)</b>",
+    "options": [
+      "If your classmate wants to sleep early, he should make a schedule.",
+      "If your classmate want to sleep early, he should make a schedule.",
+      "Your classmate should sleep early if he want to make a schedule.",
+      "If your classmate wants to sleep early, he should to make a schedule."
+    ],
+    "correctText": "If your classmate wants to sleep early, he should make a schedule.",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Ý nghĩa câu:</b> Nếu người bạn cùng lớp của con muốn đi ngủ sớm, bạn ấy nên lập một thời gian biểu cụ thể."
+  },
+  {
+    "id": "ex22_7",
+    "type": "mcq",
+    "category": "Exercise 22: First conditional sentences with modal verbs",
+    "question": "Hoàn thành câu điều kiện loại 1 sử dụng từ khuyết thiếu gợi ý trong ngoặc:<br><b>your brother/ get/ tired/ tomorrow/ he/ stay up late/ tonight. (might)</b>",
+    "options": [
+      "Your brother might get tired tomorrow if he stays up late tonight.",
+      "If your brother might get tired tomorrow, he stays up late tonight.",
+      "Your brother might get tired tomorrow if he stay up late tonight.",
+      "Your brother might gets tired tomorrow if he stays up late tonight."
+    ],
+    "correctText": "Your brother might get tired tomorrow if he stays up late tonight.",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Ý nghĩa câu:</b> Anh/em trai của con có thể sẽ bị mệt mỏi vào ngày mai nếu tối nay cậu ấy thức khuya."
+  },
+  {
+    "id": "ex22_8",
+    "type": "mcq",
+    "category": "Exercise 22: First conditional sentences with modal verbs",
+    "question": "Hoàn thành câu điều kiện loại 1 sử dụng từ khuyết thiếu gợi ý trong ngoặc:<br><b>you/ attend/ formal/ event/ you/ dress/ appropriate/ and/ behave/ polite. (should)</b>",
+    "options": [
+      "If you attend a formal event, you should dress appropriately and behave politely.",
+      "If you attend a formal event, you should dress appropriate and behave polite.",
+      "You should attend a formal event if you dress appropriately and behave politely.",
+      "If you will attend a formal event, you should dress appropriately and behave politely."
+    ],
+    "correctText": "If you attend a formal event, you should dress appropriately and behave politely.",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Ý nghĩa câu:</b> Nếu con tham dự một sự kiện trang trọng, con nên ăn mặc phù hợp và cư xử lịch sự.<br><b>Từ loại nâng cao:</b> Cần dùng hai trạng từ <i>appropriately</i> và <i>politely</i> bổ nghĩa cho động từ hành động dress và behave."
+  },
+  {
+    "id": "ex23_1",
+    "type": "mcq",
+    "category": "Exercise 23: Rewrite sentences using 'If'",
+    "question": "Viết lại câu sao cho nghĩa không đổi sử dụng cấu trúc IF:<br><b>Teachers have to work very hard.</b>",
+    "options": [
+      "If you're a teacher, you will have to work very hard.",
+      "If you will be a teacher, you have to work very hard.",
+      "If you work very hard, you are a teacher.",
+      "If teachers have to work very hard, you are a teacher."
+    ],
+    "correctText": "If you're a teacher, you will have to work very hard.",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Ý nghĩa câu:</b> Nếu con là một giáo viên, con sẽ phải làm việc vô cùng chăm chỉ."
+  },
+  {
+    "id": "ex23_2",
+    "type": "mcq",
+    "category": "Exercise 23: Rewrite sentences using 'If'",
+    "question": "Viết lại câu sao cho nghĩa không đổi sử dụng cấu trúc IF:<br><b>Read more books and you can broaden your knowledge.</b>",
+    "options": [
+      "If you read more books, you can broaden your knowledge.",
+      "If you can broaden your knowledge, you read more books.",
+      "If you will read more books, you can broaden your knowledge.",
+      "If you don't read more books, you can broaden your knowledge."
+    ],
+    "correctText": "If you read more books, you can broaden your knowledge.",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Ý nghĩa câu:</b> Nếu con đọc nhiều sách hơn, con có thể mở rộng kiến thức sâu rộng của mình."
+  },
+  {
+    "id": "ex23_3",
+    "type": "mcq",
+    "category": "Exercise 23: Rewrite sentences using 'If'",
+    "question": "Viết lại câu sao cho nghĩa không đổi sử dụng cấu trúc IF:<br><b>Tuan might fail his English placement test. But he can take it again.</b>",
+    "options": [
+      "If Tuan fails his English placement test, he can take it again.",
+      "If Tuan fail his English placement test, he can take it again.",
+      "If Tuan can take it again, he fails his English placement test.",
+      "If Tuan will fail his English placement test, he can take it again."
+    ],
+    "correctText": "If Tuan fails his English placement test, he can take it again.",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Ý nghĩa câu:</b> Nếu Tuấn trượt bài thi xếp lớp tiếng Anh, cậu ấy vẫn có thể thi lại lần nữa."
+  },
+  {
+    "id": "ex23_4",
+    "type": "mcq",
+    "category": "Exercise 23: Rewrite sentences using 'If'",
+    "question": "Viết lại câu sao cho nghĩa không đổi sử dụng cấu trúc IF:<br><b>Pay attention to the teacher or you can't understand the lessons.</b>",
+    "options": [
+      "If you don't pay attention to the teacher, you can't understand the lessons.",
+      "If you pay attention to the teacher, you can't understand the lessons.",
+      "If you don't pay attention to the teacher, you can understand the lessons.",
+      "Unless you don't pay attention to the teacher, you can't understand the lessons."
+    ],
+    "correctText": "If you don't pay attention to the teacher, you can't understand the lessons.",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Ý nghĩa câu:</b> Nếu con không chú ý nghe thầy cô giảng bài, con không thể hiểu được bài học đâu."
+  },
+  {
+    "id": "ex23_5",
+    "type": "mcq",
+    "category": "Exercise 23: Rewrite sentences using 'If'",
+    "question": "Viết lại câu sao cho nghĩa không đổi sử dụng cấu trúc IF:<br><b>People who live in a cold country don't like hot weather.</b>",
+    "options": [
+      "If you live in a cold country, you won't like hot weather.",
+      "If you don't live in a cold country, you won't like hot weather.",
+      "If you live in a cold country, you will like hot weather.",
+      "If you like hot weather, you live in a cold country."
+    ],
+    "correctText": "If you live in a cold country, you won't like hot weather.",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Ý nghĩa câu:</b> Nếu con sống ở một quốc gia xứ lạnh, con sẽ không thích thời tiết nóng bức đâu."
+  },
+  {
+    "id": "ex23_6",
+    "type": "mcq",
+    "category": "Exercise 23: Rewrite sentences using 'If'",
+    "question": "Viết lại câu sao cho nghĩa không đổi sử dụng cấu trúc IF:<br><b>Unless you want to get sick, you should eat more healthily.</b>",
+    "options": [
+      "If you don't want to get sick, you should eat more healthily.",
+      "If you want to get sick, you should eat more healthily.",
+      "If you don't want to get sick, you shouldn't eat more healthily.",
+      "Unless you don't want to get sick, you should eat more healthily."
+    ],
+    "correctText": "If you don't want to get sick, you should eat more healthily.",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Bản chất ngữ pháp:</b> <i>Unless = If... not</i>. Do đó 'Unless you want' tương đương hoàn toàn với 'If you don't want'."
+  },
+  {
+    "id": "ex23_7",
+    "type": "mcq",
+    "category": "Exercise 23: Rewrite sentences using 'If'",
+    "question": "Viết lại câu sao cho nghĩa không đổi sử dụng cấu trúc IF:<br><b>Don't touch the hot stove or you will burn yourself.</b>",
+    "options": [
+      "If you touch the hot stove, you will burn yourself.",
+      "If you don't touch the hot stove, you will burn yourself.",
+      "If you touch the hot stove, you won't burn yourself.",
+      "You will burn yourself if you don't touch the hot stove."
+    ],
+    "correctText": "If you touch the hot stove, you will burn yourself.",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Ý nghĩa câu:</b> Nếu con chạm vào bếp lò đang nóng, con sẽ tự làm mình bị bỏng đấy."
+  },
+  {
+    "id": "ex23_8",
+    "type": "mcq",
+    "category": "Exercise 23: Rewrite sentences using 'If'",
+    "question": "Viết lại câu sao cho nghĩa không đổi sử dụng cấu trúc IF:<br><b>Save money now and you can reward yourself with a long vacation at the end of the year.</b>",
+    "options": [
+      "If you save money now, you can reward yourself with a long vacation at the end of the year.",
+      "If you don't save money now, you can reward yourself with a long vacation at the end of the year.",
+      "If you save money now, you can't reward yourself with a long vacation at the end of the year.",
+      "You can reward yourself with a long vacation if you don't save money now."
+    ],
+    "correctText": "If you save money now, you can reward yourself with a long vacation at the end of the year.",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Ý nghĩa câu:</b> Nếu con tiết kiệm tiền ngay từ bây giờ, con có thể tự thưởng cho mình một kỳ nghỉ dài vào cuối năm."
+  },
+  {
+    "id": "ex23_9",
+    "type": "mcq",
+    "category": "Exercise 23: Rewrite sentences using 'If'",
+    "question": "Viết lại câu sao cho nghĩa không đổi sử dụng cấu trúc IF:<br><b>Stop telling lies or no one will trust you anymore.</b>",
+    "options": [
+      "If you don't stop telling lies, no one will trust you anymore.",
+      "If you stop telling lies, no one will trust you anymore.",
+      "If you don't stop telling lies, everyone will trust you anymore.",
+      "No one will trust you anymore unless you don't stop telling lies."
+    ],
+    "correctText": "If you don't stop telling lies, no one will trust you anymore.",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Ý nghĩa câu:</b> Nếu con không dừng việc nói dối lại, sẽ không còn một ai tin tưởng con nữa đâu."
+  },
+  {
+    "id": "ex23_10",
+    "type": "mcq",
+    "category": "Exercise 23: Rewrite sentences using 'If'",
+    "question": "Viết lại câu sao cho nghĩa không đổi sử dụng cấu trúc IF:<br><b>Go to bed early or you will be exhausted the next morning.</b>",
+    "options": [
+      "If you don't go to bed early, you may be exhausted the next morning.",
+      "If you go to bed early, you will be exhausted the next morning.",
+      "If you don't go to bed early, you won't be exhausted the next morning.",
+      "You may be exhausted the next morning if you go to bed early."
+    ],
+    "correctText": "If you don't go to bed early, you may be exhausted the next morning.",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Ý nghĩa câu:</b> Nếu con không đi ngủ sớm, con có thể sẽ bị kiệt sức hoàn toàn vào sáng ngày mai."
+  },
+  {
+    "id": "ex24_1",
+    "type": "mcq",
+    "category": "Exercise 24: Combine sentences using modals with 'if'",
+    "question": "Kết hợp cặp câu đề bài cho sử dụng động từ khuyết thiếu gợi ý trong ngoặc:<br><b>You want to go home early. You finish your duty. (have to)</b>",
+    "options": [
+      "If you want to go home early, you have to finish your duty.",
+      "If you have to finish your duty, you want to go home early.",
+      "You want to go home early if you have to finish your duty.",
+      "If you want to go home early, you will have to finish your duty."
+    ],
+    "correctText": "If you want to go home early, you have to finish your duty.",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Ý nghĩa câu:</b> Nếu con muốn đi về nhà sớm, con phải hoàn thành xong nhiệm vụ trách nhiệm của mình."
+  },
+  {
+    "id": "ex24_2",
+    "type": "mcq",
+    "category": "Exercise 24: Combine sentences using modals with 'if'",
+    "question": "Kết hợp cặp câu đề bài cho sử dụng động từ khuyết thiếu gợi ý trong ngoặc:<br><b>You want to be there on time. You leave here now. (must)</b>",
+    "options": [
+      "If you want to be there on time, you must leave here now.",
+      "If you must leave here now, you want to be there on time.",
+      "You must leave here now if you want to be there on time.",
+      "If you will want to be there on time, you must leave here now."
+    ],
+    "correctText": "If you want to be there on time, you must leave here now.",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Ý nghĩa câu:</b> Nếu con muốn đến đó đúng giờ, con bắt buộc phải rời khỏi đây ngay bây giờ."
+  },
+  {
+    "id": "ex24_3",
+    "type": "mcq",
+    "category": "Exercise 24: Combine sentences using modals with 'if'",
+    "question": "Kết hợp cặp câu đề bài cho sử dụng động từ khuyết thiếu gợi ý trong ngoặc:<br><b>You have a lot of money. You work harder and harder. (may)</b>",
+    "options": [
+      "You may have a lot of money if you work harder and harder.",
+      "If you may have a lot of money, you work harder and harder.",
+      "If you work harder and harder, you must have a lot of money.",
+      "You have a lot of money if you may work harder and harder."
+    ],
+    "correctText": "You may have a lot of money if you work harder and harder.",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Ý nghĩa câu:</b> Con có thể sẽ sở hữu rất nhiều tiền nếu con làm việc ngày càng chăm chỉ."
+  },
+  {
+    "id": "ex24_4",
+    "type": "mcq",
+    "category": "Exercise 24: Combine sentences using modals with 'if'",
+    "question": "Kết hợp cặp câu đề bài cho sử dụng động từ khuyết thiếu gợi ý trong ngoặc:<br><b>You want to go to England to study. You are good at English. (must)</b>",
+    "options": [
+      "If you want to go to England to study, you must be good at English.",
+      "If you must be good at English, you want to go to England to study.",
+      "You must be good at English if you want to go to England to study.",
+      "If you want to go to England to study, you must are good at English."
+    ],
+    "correctText": "If you want to go to England to study, you must be good at English.",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Ý nghĩa câu:</b> Nếu con muốn đi sang Anh để du học, con bắt buộc phải học giỏi Tiếng Anh. Động từ <i>be</i> nguyên mẫu đứng sau must."
+  },
+  {
+    "id": "ex24_5",
+    "type": "mcq",
+    "category": "Exercise 24: Combine sentences using modals with 'if'",
+    "question": "Kết hợp cặp câu đề bài cho sử dụng động từ khuyết thiếu gợi ý trong ngoặc:<br><b>You enter the stadium. You have a ticket. (can)</b>",
+    "options": [
+      "You can enter the stadium if you have a ticket.",
+      "If you can enter the stadium, you have a ticket.",
+      "You enter the stadium if you can have a ticket.",
+      "If you don't have a ticket, you can enter the stadium."
+    ],
+    "correctText": "You can enter the stadium if you have a ticket.",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Ý nghĩa câu:</b> Con có thể đi vào trong sân vận động nếu con sở hữu một chiếc vé vào cửa."
+  },
+  {
+    "id": "ex24_6",
+    "type": "mcq",
+    "category": "Exercise 24: Combine sentences using modals with 'if'",
+    "question": "Kết hợp cặp câu đề bài cho sử dụng động từ khuyết thiếu gợi ý trong ngoặc:<br><b>You don't study harder. You fail the examination again. (will)</b>",
+    "options": [
+      "If you don't study harder, you will fail the examination again.",
+      "If you study harder, you will fail the examination again.",
+      "You will study harder if you don't fail the examination again.",
+      "If you don't study harder, you won't fail the examination again."
+    ],
+    "correctText": "If you don't study harder, you will fail the examination again.",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Ý nghĩa câu:</b> Nếu con không học tập chăm chỉ hơn, con sẽ lại thi trượt một lần nữa đấy."
+  },
+  {
+    "id": "ex24_7",
+    "type": "mcq",
+    "category": "Exercise 24: Combine sentences using modals with 'if'",
+    "question": "Kết hợp cặp câu đề bài cho sử dụng động từ khuyết thiếu gợi ý trong ngoặc:<br><b>Your homework is ready. You take a short rest. (may)</b>",
+    "options": [
+      "If your homework is ready, you may take a short rest.",
+      "If you may take a short rest, your homework is ready.",
+      "Your homework is ready if you may take a short rest.",
+      "If your homework will be ready, you may take a short rest."
+    ],
+    "correctText": "If your homework is ready, you may take a short rest.",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Ý nghĩa câu:</b> Nếu bài tập về nhà của con đã làm xong sẵn sàng, con có thể nghỉ ngơi một chút."
+  },
+  {
+    "id": "ex24_8",
+    "type": "mcq",
+    "category": "Exercise 24: Combine sentences using modals with 'if'",
+    "question": "Kết hợp cặp câu đề bài cho sử dụng động từ khuyết thiếu gợi ý trong ngoặc:<br><b>You want your health to be better. You go to bed early. (should)</b>",
+    "options": [
+      "If you want your health to be better, you should go to bed early.",
+      "If you should go to bed early, you want your health to be better.",
+      "You should go to bed early if you want your health to be better.",
+      "If you want your health to be better, you should to go to bed early."
+    ],
+    "correctText": "If you want your health to be better, you should go to bed early.",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Ý nghĩa câu:</b> Nếu con muốn sức khỏe của mình tốt hơn, con nên tập đi ngủ sớm."
+  },
+  {
+    "id": "ex24_9",
+    "type": "mcq",
+    "category": "Exercise 24: Combine sentences using modals with 'if'",
+    "question": "Kết hợp cặp câu đề bài cho sử dụng động từ khuyết thiếu gợi ý trong ngoặc:<br><b>You finish cleaning the floor. You want to go fishing with Tom. (have to)</b>",
+    "options": [
+      "If you want to go fishing with Tom, you have to finish cleaning the floor.",
+      "If you have to finish cleaning the floor, you want to go fishing with Tom.",
+      "You have to go fishing with Tom if you finish cleaning the floor.",
+      "If you finish cleaning the floor, you want to have to go fishing with Tom."
+    ],
+    "correctText": "If you want to go fishing with Tom, you have to finish cleaning the floor.",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Ý nghĩa câu:</b> Nếu con muốn đi câu cá với bạn Tom, con phải lau xong sàn nhà đã."
+  },
+  {
+    "id": "ex24_10",
+    "type": "mcq",
+    "category": "Exercise 24: Combine sentences using modals with 'if'",
+    "question": "Kết hợp cặp câu đề bài cho sử dụng động từ khuyết thiếu gợi ý trong ngoặc:<br><b>You don't want to be late for the meeting. You take a taxi. (ought to)</b>",
+    "options": [
+      "If you don't want to be late for the meeting, you ought to take a taxi.",
+      "If you ought to take a taxi, you don't want to be late for the meeting.",
+      "You ought to take a taxi if you don't want to be late for the meeting.",
+      "If you don't want to be late for the meeting, you ought to taking a taxi."
+    ],
+    "correctText": "If you don't want to be late for the meeting, you ought to take a taxi.",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Ý nghĩa câu:</b> Nếu con không muốn bị muộn cuộc họp, con nên đón một chiếc xe taxi đi nhé.<br><b>Ngữ pháp:</b> Cấu trúc <i>ought to + V-inf</i> đồng nghĩa với <i>should</i>."
+  },
+  {
+    "id": "ex25_1",
+    "type": "mcq",
+    "category": "Exercise 25: Multiple Choice - Sentence Closest in Meaning",
+    "question": "Choose the sentence that is closest in meaning:<br><b>Teenagers often find talking to their parents hard.</b>",
+    "options": [
+      "Teenagers find hard to talk with their parents.",
+      "Teenagers often hardly find talking to their parents.",
+      "Teenagers often find it difficult to talk to their parents.",
+      "Teenagers often find it hard talking to their parents."
+    ],
+    "correctText": "Teenagers often find it difficult to talk to their parents.",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Cấu trúc câu cốt lõi cực quan trọng:</b> <i>S + find + it + adj + to V-inf</i> (Ai đó cảm thấy cái gì như thế nào để làm việc gì). Đồng thời <i>hard = difficult</i>."
+  },
+  {
+    "id": "ex25_2",
+    "type": "mcq",
+    "category": "Exercise 25: Multiple Choice - Sentence Closest in Meaning",
+    "question": "Choose the sentence that is closest in meaning:<br><b>If I had more time, I would join the school sports team.</b>",
+    "options": [
+      "I wouldn’t join the school sports team unless I had more time.",
+      "Unless I have more time, I would join the school sports team.",
+      "I would join the school sports team, unless I have more time.",
+      "If I have more time, I will join the school sports team."
+    ],
+    "correctText": "I wouldn’t join the school sports team unless I had more time.",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Bản chất cấu trúc:</b> Câu điều kiện loại 2 giả định điều không có thật ở hiện tại. Bản chất <i>Unless = If... not</i>, câu gốc 'Nếu tớ có thời gian, tớ sẽ tham gia' bằng nghĩa hoàn toàn với 'Tớ sẽ không tham gia trừ khi tớ có thêm thời gian'."
+  },
+  {
+    "id": "ex25_3",
+    "type": "mcq",
+    "category": "Exercise 25: Multiple Choice - Sentence Closest in Meaning",
+    "question": "Choose the sentence that is closest in meaning:<br><b>Sue spends hours choosing the perfect outfit for school.</b>",
+    "options": [
+      "Sue doesn’t care about how she looks at school.",
+      "Sue often changes her outfit after arriving at school.",
+      "It takes Sue very little time to find an outfit for school.",
+      "Sue takes a long time to choose the perfect outfit for school."
+    ],
+    "correctText": "Sue takes a long time to choose the perfect outfit for school.",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Phân tích cụm từ:</b> Câu gốc cho 'Sue dành hàng giờ đồng hồ (spends hours)' tương đương ngữ nghĩa với phương án D 'Sue mất rất nhiều thời gian (takes a long time)'."
+  },
+  {
+    "id": "ex25_4",
+    "type": "mcq",
+    "category": "Exercise 25: Multiple Choice - Sentence Closest in Meaning",
+    "question": "Choose the sentence that is closest in meaning:<br><b>“I’ve just finished my homework”, Tina said.</b>",
+    "options": [
+      "Tina said she just finished her homework.",
+      "Tina said she had just finished her homework.",
+      "Tina said that she finished her homework.",
+      "Tina said that I have just finished her homework."
+    ],
+    "correctText": "Tina said she had just finished her homework.",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Quy tắc câu gián tiếp (Reported Speech):</b> Thì hiện tại hoàn thành (have/has + V3) của câu trực tiếp bắt buộc phải lùi một thì thành quá khứ hoàn thành (had + V3) ở câu gián tiếp."
+  },
+  {
+    "id": "ex25_5",
+    "type": "mcq",
+    "category": "Exercise 25: Multiple Choice - Sentence Closest in Meaning",
+    "question": "Choose the sentence that is closest in meaning:<br><b>The new student who is from Japan loves manga comics.</b>",
+    "options": [
+      "The new student loves manga comics from Japan.",
+      "The new student loves manga comics, whom is from Japan.",
+      "The new student who loves manga comics is from Japan.",
+      "The new student, that loves manga comics, is from Japan."
+    ],
+    "correctText": "The new student who loves manga comics is from Japan.",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Mệnh đề quan hệ (Relative Clause):</b> Đại từ quan hệ <i>who</i> bổ nghĩa cho danh từ chỉ người đứng liền trước nó. Bản dịch logic chuẩn xác nhất là phương án C."
+  },
+  {
+    "id": "ex25_6",
+    "type": "mcq",
+    "category": "Exercise 25: Multiple Choice - Sentence Closest in Meaning",
+    "question": "Choose the sentence that is closest in meaning:<br><b>She didn’t get enough sleep because she stayed up late studying.</b>",
+    "options": [
+      "She didn’t get enough sleep, so she stayed up late studying.",
+      "Since she stayed up late studying, she didn’t get enough sleep.",
+      "She didn’t get enough sleep, yet she stayed up late studying.",
+      "She didn’t get enough sleep; therefore, she stayed up late studying."
+    ],
+    "correctText": "Since she stayed up late studying, she didn’t get enough sleep.",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Từ đồng nghĩa liên từ:</b> Liên từ <i>Since</i> đứng đầu câu mang ý nghĩa là 'Bởi vì', bằng nghĩa hoàn toàn với liên từ <i>because</i> chỉ nguyên nhân."
+  },
+  {
+    "id": "ex25_7",
+    "type": "mcq",
+    "category": "Exercise 25: Multiple Choice - Sentence Closest in Meaning",
+    "question": "Choose the sentence that is closest in meaning:<br><b>''I'll buy you a new bicycle if you stop eating junk food.\", said Mary's mother.</b>",
+    "options": [
+      "Mary's mother promised to buy him a new bicycle if he stopped eating junk food.",
+      "Mary's mother promises to buy him a new bicycle if he stops eating junk food.",
+      "Mary's mother will promise to buy him a new bicycle if he stops eating junk food.",
+      "Mary's mother had promised to buy him a new bicycle if he stopped eating junk food."
+    ],
+    "correctText": "Mary's mother promised to buy him a new bicycle if he stopped eating junk food.",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Cấu trúc câu gián tiếp đặc biệt:</b> Lời hứa hẹn dùng động từ <i>promised + to V-inf</i> và thực hiện lùi thì của mệnh đề IF từ hiện tại đơn về quá khứ đơn."
+  },
+  {
+    "id": "ex25_8",
+    "type": "mcq",
+    "category": "Exercise 25: Multiple Choice - Sentence Closest in Meaning",
+    "question": "Choose the sentence that is closest in meaning:<br><b>I had to lose some weight. I went on a strict diet.</b>",
+    "options": [
+      "I had to lose some weight after I went on a strict diet.",
+      "I went on a strict diet in order to lose some weight.",
+      "I had to lose some weight before I went on a strict diet.",
+      "I had to lose some weight even when I went on a strict diet."
+    ],
+    "correctText": "I went on a strict diet in order to lose some weight.",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Cấu trúc chỉ mục đích:</b> Cụm từ <i>in order to + V-inf</i> mang ý nghĩa là 'để mà làm gì', nối hai câu đơn thể hiện mục đích của hành động ăn kiêng."
+  },
+  {
+    "id": "ex25_9",
+    "type": "mcq",
+    "category": "Exercise 25: Multiple Choice - Sentence Closest in Meaning",
+    "question": "Choose the sentence that is closest in meaning:<br><b>People want to keep fit. Many people take up sports.</b>",
+    "options": [
+      "Many people take up sports so as to keep fit.",
+      "Many people want to keep fit so as to take up sports.",
+      "Many people want to keep fit in order to take up sports.",
+      "Although people want to keep fit, they take up sports."
+    ],
+    "correctText": "Many people take up sports so as to keep fit.",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Cấu trúc chỉ mục đích:</b> Cụm từ <i>so as to + V-inf</i> mang ý nghĩa là 'để mà giữ dáng', phản ánh chính xác mục tiêu của việc tập luyện thể thao."
+  },
+  {
+    "id": "ex25_10",
+    "type": "mcq",
+    "category": "Exercise 25: Multiple Choice - Sentence Closest in Meaning",
+    "question": "Choose the sentence that is closest in meaning:<br><b>I want to stay healthy. I try to eat lots of fruit.</b>",
+    "options": [
+      "Although I try to eat lots of fruit, I stay healthy.",
+      "I stay healthy though I eat lots of fruit.",
+      "I try to eat lots of fruit in order to stay healthy.",
+      "I eat lots of fruit, but I stay healthy."
+    ],
+    "correctText": "I try to eat lots of fruit in order to stay healthy.",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Ý nghĩa câu:</b> Tớ cố gắng ăn thật nhiều trái cây hoa quả để mà duy trì cơ thể luôn khỏe mạnh."
+  },
+  {
+    "id": "ex26_1",
+    "type": "mcq",
+    "category": "Exercise 26: Paragraph Arrangement (Sắp xếp đoạn văn)",
+    "question": "Hãy chọn thứ tự đúng của các câu sau để tạo thành đoạn văn có nghĩa hoàn chỉnh:<br><br>a. Firstly, create a daily schedule by prioritizing tasks. Allocate time for studying, hobbies, and relaxation.<br>b. In conclusion, by organizing their time wisely, teenagers can achieve better balance and success in their daily lives.<br>c. To manage their time effectively, they can follow these steps.<br>d. Teenagers today face busy schedules due to school, extracurricular activities, and social commitments.<br>e. Finally, learn to say no when necessary. Overcommitting can cause stress and hinder productivity.<br>f. Secondly, avoid multitasking, as it can lead to inefficiency. Focus on one task at a time.",
+    "options": [
+      "A. d – b – a – f – e – c",
+      "B. d – a – b – f – e – c",
+      "C. d – c – a – f – e – b",
+      "D. d – a – f – a – e – c"
+    ],
+    "correctText": "C. d – c – a – f – e – b",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Mẹo làm bài cực đỉnh:</b> Câu mở đầu giới thiệu chủ đề tổng quan (d), tiếp theo dẫn dắt các bước (c). Sau đó liệt kê tuần tự các trạng từ liên kết: <i>Firstly (a) -> Secondly (f) -> Finally (e)</i>. Câu kết luận luôn chứa cụm từ khóa <i>In conclusion (b)</i>."
+  },
+  {
+    "id": "ex26_2",
+    "type": "mcq",
+    "category": "Exercise 26: Letter Arrangement (Sắp xếp bức thư)",
+    "question": "Hãy chọn thứ tự đúng của các câu sau để tạo thành bức thư điện tử hợp lý:<br><br>Dear Alex,<br>a. Remember, getting enough sleep is also super important for feeling good and having energy for school.<br>b. I've been thinking a lot about healthy living for us teens lately.<br>c. Eating healthy snacks like fruit and nuts instead of crisps or sweets can make a big difference.<br>d. Also, trying to be active every day, even just a walk or some sports, really helps your body and mind.<br>e. It’s all about making small, healthy choices that add up over time for a better you!<br>Your friend, Sam",
+    "options": [
+      "A. b - c - d - a - e",
+      "B. c - b - a - d - e",
+      "C. a - d - c - b - e",
+      "D. b - a - d - c - e"
+    ],
+    "correctText": "A. b - c - d - a - e",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Mẹo làm bài thư tín:</b> Lời chào đầu câu giới thiệu lý do viết thư (b). Tiếp theo đưa ra các lời khuyên lần lượt (c), nối tiếp bằng trạng từ bổ sung <i>Also (d)</i> và <i>Remember (a)</i>. Câu kết thúc mang tính đúc kết tổng hợp lời nhắn (e)."
+  },
+  {
+    "id": "ex26_3",
+    "type": "mcq",
+    "category": "Exercise 26: Paragraph Arrangement (Sắp xếp đoạn văn)",
+    "question": "Hãy chọn thứ tự đúng của các câu sau để tạo thành đoạn văn có nghĩa hoàn chỉnh:<br><br>a. In addition, stress can make it hard to focus and get a good night's sleep, which leaves us feeling tired and grumpy.<br>b. Last but not least, learning to manage stress can help us feel happier and more relaxed.<br>c. Managing stress is essential for a healthy lifestyle.<br>d. So, finding healthy ways to deal with stress, like exercise or spending time with loved ones, is really important for our overall well-being.<br>e. To begin with, when we're stressed, our bodies release hormones that can cause physical problems like headaches and upset stomachs.",
+    "options": [
+      "A. c – b – a – e – d",
+      "B. c – e – a – b – d",
+      "C. c – a – e – b – d",
+      "D. c – e – b– a – d"
+    ],
+    "correctText": "B. c – e – a – b – d",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Phân tích logic liên kết:</b> Câu chủ đề mở đầu (c). Ý thứ nhất đi kèm cụm từ <i>To begin with (e)</i>. Ý thứ hai nối tiếp bằng <i>In addition (a)</i>. Ý cuối cùng kết lại bằng <i>Last but not least (b)</i>. Từ đó đưa ra giải pháp tổng hòa kết luận bằng liên từ <i>So (d)</i>."
+  },
+  {
+    "id": "ex27_1",
+    "type": "mcq",
+    "category": "Exercise 27: Text Completion & Logical Flow",
+    "question": "Đọc đoạn văn và chọn thứ tự sắp xếp hợp lý nhất của (a-c) để điền vào ô trống:<br><br>Managing time effectively is crucial for reducing stress and achieving goals. However, it can be challenging to know where to begin. __________.<br>a. This helps me focus on what's most important and prevents me from feeling overwhelmed.<br>b. Next, I prioritize tasks, like studying for exams or completing urgent assignments.<br>c. I start by creating a detailed plan or schedule, listing all my tasks and allocating specific times for each.",
+    "options": [
+      "A. c - b – a",
+      "B. b - c – a",
+      "C. a - c – b",
+      "D. c - a - b"
+    ],
+    "correctText": "A. c - b – a",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Từ khóa báo hiệu:</b> Bắt đầu hành động bằng cụm từ <i>I start by (c)</i>. Hành động tiếp theo là <i>Next (b)</i>. Đại từ chỉ định <i>This (a)</i> đứng ở cuối câu thay thế cho toàn bộ các hành động trước đó để chỉ ra kết quả lợi ích."
+  },
+  {
+    "id": "ex27_2",
+    "type": "mcq",
+    "category": "Exercise 27: Choose Sentence Ending",
+    "question": "Dựa vào mạch logic của bài đọc số 1 ở trên, hãy chọn câu kết thúc (END) đoạn văn phù hợp, tối ưu nhất:",
+    "options": [
+      "A. This way, I can balance my activities and avoid stress.",
+      "B. I also make sure to include time for relaxation in my schedule.",
+      "C. Ultimately, effective time management is a skill that improves with practice.",
+      "D. Therefore, it's essential to have a clear understanding of your goals."
+    ],
+    "correctText": "A. This way, I can balance my activities and avoid stress.",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Phân tích ngữ cảnh:</b> Câu văn 'This way, I can balance my activities and avoid stress' (Bằng cách này, tớ có thể cân bằng các hoạt động và tránh xa áp lực) giải quyết triệt để vấn đề stress được đặt ra ở ngay câu mở đầu của đoạn văn."
+  },
+  {
+    "id": "ex27_3",
+    "type": "mcq",
+    "category": "Exercise 27: Topic Sentence Selection",
+    "question": "Chọn CÂU CHỦ ĐỀ (Topic Sentence) thích hợp nhất để bắt đầu (BEGIN) đoạn văn sau:<br><br>__________ (1)______, it allows our bodies to repair themselves and our brains to process the day's information. (2)______ It also helps us feel more alert and focused, making it easier to learn and remember things.",
+    "options": [
+      "A. Getting enough sleep helps reduce stress and boost our mood.",
+      "B. Sleep is essential for our overall health and well-being.",
+      "C. During sleep, our bodies and brains are very active.",
+      "D. People often struggle to get enough sleep in modern life."
+    ],
+    "correctText": "B. Sleep is essential for our overall health and well-being.",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Lý do chọn:</b> Câu B mang tính khái quát bao trùm nhất về vai trò cốt lõi của giấc ngủ đối với cả cơ thể (our bodies) và bộ não (our brains) được mô tả chi tiết ở các câu văn phía sau."
+  },
+  {
+    "id": "ex27_4",
+    "type": "mcq",
+    "category": "Exercise 27: Text Completion & Logical Flow",
+    "question": "Hãy chọn thứ tự đúng của các câu sau (a-c) để tiếp tục hoàn thiện đoạn văn về giấc ngủ ở trên:<br><br>a. This leads to a happier and healthier life.<br>b. Additionally, a good night's sleep can boost our mood and reduce stress.<br>c. Therefore, prioritizing sleep is crucial for feeling our best physically and mentally.",
+    "options": [
+      "A. c - b - a",
+      "B. b - a - c",
+      "C. a - c - b",
+      "D. c - a - b"
+    ],
+    "correctText": "B. b - a - c",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Mạch logic đoạn văn:</b> Câu (b) bắt đầu bằng trạng từ bổ sung ý kiến <i>Additionally</i> để thêm lợi ích cải thiện tâm trạng. Câu (a) chỉ ra hệ quả trực tiếp của lợi ích đó. Câu (c) mở đầu bằng từ kết luận <i>Therefore</i> chốt lại toàn bộ thông điệp của bài viết."
+  }
+];
+
+        let userAnswers = {};
+        let shuffledQuestions = [];
+        let audioCtxInstance = null;
+
+        function initAudio() {
+            if (!audioCtxInstance) { audioCtxInstance = new (window.AudioContext || window.webkitAudioContext)(); }
+        }
+
+        function playSound(type) {
+            try {
+                initAudio();
+                const ctx = audioCtxInstance;
+                const now = ctx.currentTime;
+                if (type === 'correct') {
+                    const osc = ctx.createOscillator(); const gain = ctx.createGain();
+                    osc.type = 'sine'; osc.frequency.setValueAtTime(523.25, now);
+                    osc.frequency.setValueAtTime(659.25, now + 0.08); osc.frequency.setValueAtTime(783.99, now + 0.16);
+                    gain.gain.setValueAtTime(0.15, now); gain.gain.exponentialRampToValueAtTime(0.01, now + 0.35);
+                    osc.connect(gain); gain.connect(ctx.destination); osc.start(now); osc.stop(now + 0.35);
+                } else {
+                    const osc = ctx.createOscillator(); const gain = ctx.createGain();
+                    osc.type = 'triangle'; osc.frequency.setValueAtTime(261.63, now);
+                    osc.frequency.setValueAtTime(220.00, now + 0.1); osc.frequency.setValueAtTime(174.61, now + 0.2);
+                    gain.gain.setValueAtTime(0.2, now); gain.gain.exponentialRampToValueAtTime(0.01, now + 0.4);
+                    osc.connect(gain); gain.connect(ctx.destination); osc.start(now); osc.stop(now + 0.4);
+                }
+            } catch(e) {}
+        }
+
+        function triggerConfetti() {
+            const canvas = document.getElementById('confetti-canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+            let particles = [];
+            const palette = ['#FFC107', '#FF5722', '#E91E63', '#9C27B0', '#00BCD4', '#00D26A', '#FF4757'];
+            for (let i = 0; i < 70; i++) {
+                particles.push({
+                    x: window.innerWidth / 2, y: window.innerHeight / 2,
+                    size: Math.random() * 6 + 5, color: palette[Math.floor(Math.random() * palette.length)],
+                    speedX: Math.random() * 12 - 6, speedY: Math.random() * -12 - 4,
+                    gravity: 0.35, rotation: Math.random() * 360, rotationSpeed: Math.random() * 8 - 4, opacity: 1
+                });
+            }
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                let live = false;
+                particles.forEach(p => {
+                    p.speedY += p.gravity; p.x += p.speedX; p.y += p.speedY; p.rotation += p.rotationSpeed;
+                    if (p.y < canvas.height && p.opacity > 0) {
+                        live = true; ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.rotation * Math.PI / 180);
+                        ctx.fillStyle = p.color; ctx.fillRect(-p.size/2, -p.size/2, p.size, p.size); ctx.restore();
+                    }
+                });
+                if (live) requestAnimationFrame(animate);
+            }
+            animate();
+        }
+
+        function shuffleArray(array) {
+            let arr = [...array];
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        function initQuiz() {
+            shuffledQuestions = originalQuestions.map(q => {
+                return { ...q, shuffledOptions: shuffleArray(q.options) };
+            });
+            renderQuiz();
+            updateProgressBar();
+        }
+
+        function renderQuiz() {
+            const container = document.getElementById('quiz-cards-wrapper');
+            container.innerHTML = '';
+            shuffledQuestions.forEach((q, idx) => {
+                const card = document.createElement('div');
+                card.className = 'quiz-card';
+                card.id = `card-q-${q.id}`;
+                
+                let innerHTML = `<div class="category-badge">${q.category} - Câu ${idx + 1}</div>`;
+                innerHTML += `<div class="question-text">${q.question}</div>`;
+                innerHTML += `<div class="options-grid">`;
+                
+                q.shuffledOptions.forEach((opt, oIdx) => {
+                    const prefix = String.fromCharCode(65 + oIdx);
+                    innerHTML += `
+                        <button class="option-btn" data-opt-text="${opt.replace(/"/g, '&quot;')}" onclick="handleSelectOption(this, '${q.id}', '${opt.replace(/'/g, "\\'")}')">
+                            <span class="option-prefix">${prefix}</span>
+                            <span class="option-body-text">${opt}</span>
+                        </button>
+                    `;
+                });
+                innerHTML += `</div>`;
+                innerHTML += `<div class="explanation-box" id="explanation-${q.id}">${q.explanation}</div>`;
+                card.innerHTML = innerHTML;
+                container.appendChild(card);
+            });
+        }
+
+        function handleSelectOption(btnElement, qId, selectedText) {
+            if (userAnswers[qId]) return;
+            const currentQuestion = shuffledQuestions.find(q => q.id === qId);
+            const isCorrect = (selectedText === currentQuestion.correctText);
+            userAnswers[qId] = { selected: selectedText, correct: isCorrect };
+
+            const card = document.getElementById(`card-q-${qId}`);
+            const buttons = card.querySelectorAll('.option-btn');
+            buttons.forEach(btn => {
+                btn.classList.add('disabled');
+                if (btn.getAttribute('data-opt-text') === currentQuestion.correctText) { btn.classList.add('correct'); }
+            });
+
+            if (isCorrect) {
+                btnElement.classList.add('correct'); playSound('correct'); triggerConfetti();
+            } else {
+                btnElement.classList.add('wrong'); card.classList.add('shake'); playSound('wrong');
+                setTimeout(() => card.classList.remove('shake'), 400);
+            }
+            document.getElementById(`explanation-${qId}`).style.display = 'block';
+            updateProgressBar();
+        }
+
+        function updateProgressBar() {
+            const percent = (Object.keys(userAnswers).length / shuffledQuestions.length) * 100;
+            document.getElementById('quiz-progress').style.width = `${percent}%`;
+        }
+
+        function showFinalScore() {
+            const total = shuffledQuestions.length;
+            let correctCount = 0;
+            Object.keys(userAnswers).forEach(qId => { if (userAnswers[qId].correct) correctCount++; });
+            const percentage = (correctCount / total) * 100;
+            let comment = "";
+
+            if (percentage < 50) {
+                comment = "Điểm lần này chưa cao lắm, con cố gắng đọc kỹ giải thích đáp án và làm lại nha. Cô tin con sẽ làm tốt hơn ở lần sau!";
+            } else if (percentage >= 60 && percentage <= 80) {
+                comment = "Con đã có tiến bộ khá ổn rồi, con cố gắng đọc kỹ giải thích đáp án và làm lại nha. Cô tin con sẽ làm tốt hơn ở lần sau!";
+            } else {
+                comment = "Làm tốt lắm, con cố gắng ring điểm 10 ở lần sau nha!";
+            }
+
+            document.getElementById('score-text').innerHTML = `${correctCount} / ${total}`;
+            document.getElementById('comment-text').innerHTML = `<b>Ms Lê Hằng nhận xét:</b><br>"${comment}"`;
+            document.getElementById('result-modal').style.display = 'flex';
+        }
+
+        function closeResultModal() { document.getElementById('result-modal').style.display = 'none'; }
+
+        window.onload = () => { initQuiz(); };
+    </script>
+</body>
+</html>
